@@ -16,6 +16,7 @@ public class ReservaHabitacion {
 		try {
 			hotel.reservarHabitacion(cliente);
 		} catch (Exception e) {
+			System.out.println("Np hay habitación disponible en este hotel");
 			System.out.println("El estado actual del hotel es :");
 			hotel.viewHotel();
 			// TODO: handle exception

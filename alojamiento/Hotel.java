@@ -44,20 +44,25 @@ public class Hotel {
 	public void reservarHabitacion(Cliente cliente) throws ExcNoHabitacion {
 		boolean habitacionEncontrada = false;
 		int i = 0;
-		while (habitacionEncontrada == false || i == getNumPlantas()) {
+		while (habitacionEncontrada == false && i != getNumPlantas()) {
 			boolean plantaRecorridaEntera = false;
+			
 			int j = 0;
-			while ((plantaRecorridaEntera==false|| j == getNumHabPlanta())&&habitacionEncontrada==false) {
+			
+			while (( j != getNumHabPlanta() &&habitacionEncontrada == false)) {
 				if (habitaciones[i][j].ocupado == false) {
 					habitaciones[i][j].setCliente(cliente);
 					habitaciones[i][j].setOcupado(true);
 					habitacionEncontrada = true;
 				}
 				j++;
+				
 			}
 			i++;
+			
 		}
 		if (habitacionEncontrada == false) {
+			
 			throw new ExcNoHabitacion();
 		}
 	}
