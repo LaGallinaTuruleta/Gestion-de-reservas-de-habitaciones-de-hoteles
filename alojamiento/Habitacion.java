@@ -3,6 +3,7 @@ package marzo18.Hotel.alojamiento;
 import marzo18.Hotel.Cliente.Cliente;
 
 public class Habitacion {
+	String planta;
 	String sitio;
 	Cliente cliente;
 	Boolean ocupado;
@@ -10,10 +11,19 @@ public class Habitacion {
 	String tipoHabitacion;
 
 	public Habitacion() {
+		this.planta = "";
 		this.sitio = "";
 		this.cliente = null;
 		this.ocupado = false;
 		this.tipoHabitacion = "";
+		this.util = true;
+	}
+
+	public Habitacion(String planta, String sitio) {
+		this.planta = planta;
+		this.sitio = sitio;
+		this.ocupado = false;
+		this.tipoHabitacion = "Normal";
 		this.util = true;
 	}
 

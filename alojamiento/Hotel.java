@@ -33,11 +33,12 @@ public class Hotel {
 		this.telefono = telefono;
 		this.estrellas = estrellas;
 		this.habitaciones = new Habitacion[this.numPlantas][this.numHabPlanta];
+		String letras[] = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+				"S", "T", "U", "V", "W", "Y", "Z" };
 		for (int i = 0; i < numPlantas; i++) {
 			for (int j = 0; j < numHabPlanta; j++) {
-				habitaciones[i][j] = new Habitacion();
+				habitaciones[i][j] = new Habitacion(Integer.toString(i), letras[j]);
 			}
-			System.out.println();
 		}
 	}
 
@@ -45,41 +46,43 @@ public class Hotel {
 		boolean habitacionEncontrada = false;
 		int i = 0;
 		while (habitacionEncontrada == false && i != getNumPlantas()) {
-			boolean plantaRecorridaEntera = false;
-			
 			int j = 0;
-			
-			while (( j != getNumHabPlanta() &&habitacionEncontrada == false)) {
+			while ((j != getNumHabPlanta() && habitacionEncontrada == false)) {
 				if (habitaciones[i][j].ocupado == false) {
 					habitaciones[i][j].setCliente(cliente);
 					habitaciones[i][j].setOcupado(true);
 					habitacionEncontrada = true;
 				}
 				j++;
-				
 			}
 			i++;
-			
 		}
 		if (habitacionEncontrada == false) {
-			
+
 			throw new ExcNoHabitacion();
 		}
 	}
 
 	public void viewHotel() {
 		System.out.println("Hotel : " + getNombre());
-		for (int i = 0; i < numPlantas; i++) {
-			System.out.print("Planta: " + i);
-			for (int j = 0; j < numHabPlanta; j++) {
-				if (habitaciones[i][j].getOcupado() == true) {
-					System.out.print("[C]");
-				} else {
-					System.out.print("[L]");
+		try {
+			//	System.out.println("Hotel : " + getNombre());
+			for (int i = 0; i < numPlantas; i++) {
+				System.out.print("Planta: " + i + " : ");
+				for (int j = 0; j < numHabPlanta; j++) {
+					if (habitaciones[i][j].getOcupado() == true) {
+						System.out.print(habitaciones[i][j].getSitio() + "[C]");
+					} else {
+						System.out.print(habitaciones[i][j].getSitio() + "[L]");
+					}
 				}
+				System.out.println();
 			}
-			System.out.println();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Peta en la visualización del hotel:");
 		}
+
 	}
 
 	public String getNombre() {
