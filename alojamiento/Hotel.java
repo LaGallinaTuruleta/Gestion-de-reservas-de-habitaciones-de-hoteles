@@ -125,8 +125,15 @@ public class Hotel {
 		this.telefono = telefono;
 	}
 
-	public Habitacion[][] getHabitaciones() {
-		return habitaciones;
+	public String getHabitaciones() {
+		String habitacionesinfo = null;
+		for (int i = 0; i < numPlantas; i++) {
+			for (int j = 0; j < numHabPlanta; j++) {
+				habitacionesinfo=habitacionesinfo+";"+habitaciones[i][j].getPlanta()+","+habitaciones[i][j].getSitio()+","+habitaciones[i][j].getCliente();
+			}
+		}
+		System.out.println(habitacionesinfo);
+		return habitacionesinfo;
 	}
 
 	public void setHabitaciones(Habitacion[][] habitaciones) {

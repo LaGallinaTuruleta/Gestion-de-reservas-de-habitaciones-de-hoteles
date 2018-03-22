@@ -7,8 +7,22 @@ public class Habitacion {
 	String sitio;
 	Cliente cliente;
 	Boolean ocupado;
-	Boolean util;
-	String tipoHabitacion;
+	Boolean util;//
+	String tipoHabitacion;//
+	
+	public Habitacion(String planta,String sitio,Cliente cliente){
+		this.planta= planta;
+		this.sitio=sitio;
+		this.cliente=cliente;
+	}
+
+	public String getPlanta() {
+		return planta;
+	}
+
+	public void setPlanta(String planta) {
+		this.planta = planta;
+	}
 
 	public Habitacion() {
 		this.planta = "";

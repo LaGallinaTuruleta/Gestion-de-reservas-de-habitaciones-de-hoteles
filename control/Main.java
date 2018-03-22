@@ -13,38 +13,43 @@ public class Main {
 	public static void main(String[] args) {
 		HotelBuffer hb = new HotelBuffer();
 		ArrayList<Hotel> hoteles = new ArrayList<Hotel>();
-		ArrayList<ReservaHabitacion> reservas = new ArrayList<ReservaHabitacion>();
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		Hotel h = null;
 
 		hoteles.add(new Hotel("Palace", "Calle doritos 13", "palace@hotel.com", "679666866", "*****", 5, 20));
+
+		/*
+		 * hb.guardarHotelEnFichero(
+		 * "C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel/Hotel.txt",
+		 * hoteles.get(0)); hoteles.add(hb.insertarHotelFichero(
+		 * "C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel/Hotel3xq.txt"
+		 * ));
+		 * 
+		 * System.out.println(clientes.toString()); Cliente cl1 = new
+		 * Cliente("Alex", "Blanes", "Saumell", "5372212314d"); Cliente cl2 =
+		 * new Cliente("Leo", "Vitacore", "Portast", "1235875643Y"); Cliente cl3
+		 * = new Cliente("Muyayo", "Clavayo", "Villaragut", "666666666X");
+		 * Cliente cl4 = new Cliente("Josemi", "Keeo", "Bravo", "4249823U");
+		 * clientes.add(cl1); clientes.add(cl2); clientes.add(cl3);
+		 * clientes.add(cl4);
+		 */
+		hoteles.get(0).getHabitaciones();
 		
-		hoteles.toString();
-		
-		
-		hb.guardarHotelEnFichero("C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel/Hotel.txt",
-				hoteles.get(0));
-		hoteles.add(hb.insertarHotelFichero(
-				"C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel/Hotel3xq.txt"));
-		Cliente cl1 = new Cliente("Alex", "Blanes", "Saumell", "5372212314d");
-		Cliente cl2 = new Cliente("Leo", "Vitacore", "Portast", "1235875643Y");
-		Cliente cl3 = new Cliente("Muyayo", "Clavayo", "Villaragut", "666666666X");
-		clientes.add(cl1);
-		clientes.add(cl2);
-		clientes.add(cl3);
-		hb.guardarClientesEnFichero("C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel/Cliente1.txt", clientes);
 		//hoteles.add(hb.insertarHotelFichero("C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel3.txt"));
 		int i = 0;
-		int menu = -1;
+		int menu = 0;
 		while (menu != 0) {
-			System.out.println("1.Introduzca hotel a mano");
-			System.out.println("101.Introduzca hotel mediante fichero");
-			System.out.println("102.Introduzca hoteles guardados en base de datos");
-			System.out.println("103.Guardar un hotel en un fichero txt");
-			System.out.println("104.Guardar hoteles en base de datos");
+			System.out.println("1. Introduzca hotel a mano");
+			System.out.println("101. Introduzca hotel mediante fichero");
+			System.out.println("102. Introduzca hoteles guardados en base de datos");
+			System.out.println("103. Guardar un hotel en un fichero txt");
+			System.out.println("104. Guardar hoteles en base de datos");
 			System.out.println("11. Mostrar listado de hoteles");
-			System.out.println("2.Introduzca reserva de habitacion a mano");
-			System.out.println("0.Salir del programa");
+			System.out.println("2. Introduzca reserva de habitacion a mano");
+			System.out.println("3. Muestra el listado de clientes presentes en el programa");
+			System.out.println("301. Guarda los clientes en un archivo de texto");
+			System.out.println("302. Inserta los clientes de un archivo de texto");
+			System.out.println("0. Salir del programa");
 			menu = sc.nextInt();
 			switch (menu) {
 			case 1:
@@ -84,9 +89,11 @@ public class Main {
 					i++;
 				}
 				int numHotelAGuardar = sc.nextInt();
-				hb.guardarHotelEnFichero("C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel/Hotel"
+				
+				/*hb.guardarHotelEnFichero("C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel/Hotel"
 						+ hoteles.get(numHotelAGuardar).getNombre() + ".txt", hoteles.get(numHotelAGuardar));
-				break;
+				*/
+						break;
 			case 11:
 				i = 0;
 				for (Hotel hotel : hoteles) {
@@ -102,7 +109,19 @@ public class Main {
 					}
 				}
 				break;
-
+			case 3:
+				for (Cliente cliente : clientes) {
+					System.out.println(cliente.toString());
+				}
+				break;
+			case 301:
+				hb.guardarClientesEnFichero(
+						"C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel/Cliente1.txt", clientes);
+				break;
+			case 302:
+				clientes.addAll(hb.insertarClientesDeFichero(
+						"C:/Users/Blanes-PC/Documents/MEGA/1DAW/PROGRAMACIÓN/3EVALUACION/Hotel/Cliente1.txt"));
+				break;
 			default:
 				System.out.println("Este no existe");
 				break;
