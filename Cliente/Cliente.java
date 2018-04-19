@@ -21,6 +21,12 @@ public class Cliente {
 		this.dni = dni;
 	}
 
+	public Cliente(String nombre, String apellido1, String dni) {
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.dni = dni;
+	}
+
 	public String getApellido1() {
 		return apellido1;
 	}
@@ -58,7 +64,8 @@ public class Cliente {
 		return "Cliente [nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", dni=" + dni
 				+ "]";
 	}
+	public String toStringBBDD() {
+		return nombre + "," + apellido1 + "," + apellido2 + "," + dni;
+	}
 
-	
-	
 }

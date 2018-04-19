@@ -35,14 +35,22 @@ public class Hotel {
 		this.habitaciones = new Habitacion[this.numPlantas][this.numHabPlanta];
 		String letras[] = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
 				"S", "T", "U", "V", "W", "Y", "Z" };
-		for (int i = 0; i < numPlantas; i++) {
-			for (int j = 0; j < numHabPlanta; j++) {
-				habitaciones[i][j] = new Habitacion(Integer.toString(i), letras[j]);
+		try {
+			for (int i = 0; i < numPlantas; i++) {
+				for (int j = 0; j < numHabPlanta; j++) {
+					habitaciones[i][j] = new Habitacion(Integer.toString(i), letras[j]);
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(
+					"Peta en la creación de las habitaciones, posiblemente por tener más habitaciones por planta que letras en el abecedario.");
 		}
+
 	}
 
-	public void reservarHabitacion(Cliente cliente) throws ExcNoHabitacion {
+	public String reservarHabitacion(Cliente cliente) throws ExcNoHabitacion {
+		String resultado = "";
 		boolean habitacionEncontrada = false;
 		int i = 0;
 		while (habitacionEncontrada == false && i != getNumPlantas()) {
@@ -52,6 +60,7 @@ public class Hotel {
 					habitaciones[i][j].setCliente(cliente);
 					habitaciones[i][j].setOcupado(true);
 					habitacionEncontrada = true;
+					resultado = i + "," + j;
 				}
 				j++;
 			}
@@ -61,6 +70,7 @@ public class Hotel {
 
 			throw new ExcNoHabitacion();
 		}
+		return resultado;
 	}
 
 	public void viewHotel() {
@@ -70,10 +80,10 @@ public class Hotel {
 			for (int i = 0; i < numPlantas; i++) {
 				System.out.print("Planta: " + i + " : ");
 				for (int j = 0; j < numHabPlanta; j++) {
-					if (habitaciones[i][j].getOcupado() == true) {
-						System.out.print(habitaciones[i][j].getSitio() + "[C]");
-					} else {
+					if (habitaciones[i][j].getOcupado() == false) {
 						System.out.print(habitaciones[i][j].getSitio() + "[L]");
+					} else {
+						System.out.print(habitaciones[i][j].getSitio() + "[C]");
 					}
 				}
 				System.out.println();
@@ -126,10 +136,11 @@ public class Hotel {
 	}
 
 	public String getHabitaciones() {
-		String habitacionesinfo = null;
+		String habitacionesinfo = "";
 		for (int i = 0; i < numPlantas; i++) {
 			for (int j = 0; j < numHabPlanta; j++) {
-				habitacionesinfo=habitacionesinfo+";"+habitaciones[i][j].getPlanta()+","+habitaciones[i][j].getSitio()+","+habitaciones[i][j].getCliente();
+				habitacionesinfo = habitacionesinfo + habitaciones[i][j].getPlanta() + ","
+						+ habitaciones[i][j].getSitio() + "," + habitaciones[i][j].getRefCliente() + ";";
 			}
 		}
 		System.out.println(habitacionesinfo);
@@ -163,4 +174,16 @@ public class Hotel {
 		}
 	}
 
+	public String toString() {
+		String info = "Hotel :" + this.getNombre() + "\nNumPlantas :" + this.getNumPlantas() + "\nNumHabPlanta:"
+				+ this.getNumHabPlanta() + "\nDirrecion:" + this.getDirrecion();
+		return info;
+
+	}
+	public String toStringBBDD() {
+		String info =this.getNombre() + "," + this.getNumPlantas() + ","
+				+ this.getNumHabPlanta() + "\nDirrecion:" + this.getDirrecion();
+		return info;
+
+	}
 }

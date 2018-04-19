@@ -7,13 +7,17 @@ public class Habitacion {
 	String sitio;
 	Cliente cliente;
 	Boolean ocupado;
-	Boolean util;//
-	String tipoHabitacion;//
-	
-	public Habitacion(String planta,String sitio,Cliente cliente){
-		this.planta= planta;
-		this.sitio=sitio;
-		this.cliente=cliente;
+	Boolean util;
+	String tipoHabitacion;
+	String refCliente;
+
+	public Habitacion(String planta, String sitio, String refCliente) {
+		this.planta = planta;
+		this.sitio = sitio;
+		this.refCliente = refCliente;
+		if (this.getRefCliente() != "") {
+			this.setOcupado(true);
+		}
 	}
 
 	public String getPlanta() {
@@ -31,6 +35,7 @@ public class Habitacion {
 		this.ocupado = false;
 		this.tipoHabitacion = "";
 		this.util = true;
+		this.refCliente = "";
 	}
 
 	public Habitacion(String planta, String sitio) {
@@ -67,6 +72,14 @@ public class Habitacion {
 
 	public Cliente getCliente() {
 		return cliente;
+	}
+
+	public String getRefCliente() {
+		return refCliente;
+	}
+
+	public void setRefCliente(String refCliente) {
+		this.refCliente = refCliente;
 	}
 
 	public void setCliente(Cliente cliente) {

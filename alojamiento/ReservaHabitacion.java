@@ -4,54 +4,54 @@ import marzo18.Hotel.Cliente.Cliente;
 import utiles_varios.Fecha;
 
 public class ReservaHabitacion {
-	private Hotel hotel;
-	private Cliente cliente;
+	private String hotel;
+	private String cliente;
+	private int numPlanta;
+	private String sitio;
 
 	public ReservaHabitacion() {
-		this.hotel = new Hotel();
-		this.cliente = new Cliente();
 	}
 
 	public ReservaHabitacion(Hotel hotel, Cliente cliente) {
 		try {
-			hotel.reservarHabitacion(cliente);
+			this.hotel=hotel.getNombre();
+			this.cliente=cliente.getDni();
+			String[] infohabitacion=hotel.reservarHabitacion(cliente).split(",");
+			this.numPlanta=Integer.parseInt(infohabitacion[0]);
+			this.sitio=infohabitacion[1];
 		} catch (Exception e) {
 			System.out.println("Np hay habitación disponible en este hotel");
 			System.out.println("El estado actual del hotel es :");
 			hotel.viewHotel();
 			// TODO: handle exception
 		}
-		this.hotel = hotel;
-		this.cliente = cliente;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public int getNumPlanta() {
+		return numPlanta;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setNumPlanta(int numPlanta) {
+		this.numPlanta = numPlanta;
 	}
 
-	public Hotel getHotel() {
-		return hotel;
+	public String getSitio() {
+		return sitio;
 	}
 
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
+	public void setSitio(String sitio) {
+		this.sitio = sitio;
 	}
 
-	public Cliente getParticipante() {
-		return cliente;
-	}
-
-	public void setParticipante(Cliente participante) {
-		this.cliente = participante;
-	}
-
+	@Override
 	public String toString() {
-		String toString = cliente.getNombre() + " tiene una reserva en " + hotel.getNombre();
-		return toString;
-
+		return "ReservaHabitacion [hotel=" + hotel + ", cliente=" + cliente + ", numPlanta=" + numPlanta + ", sitio="
+				+ sitio + "]";
 	}
+	public String toStringBBDD() {
+		return hotel + "," + cliente + "," + numPlanta + ","+ sitio;
+	}
+
+	
+	
 }

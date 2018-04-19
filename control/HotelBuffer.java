@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import marzo18.Hotel.Cliente.Cliente;
+import marzo18.Hotel.alojamiento.Habitacion;
 import marzo18.Hotel.alojamiento.Hotel;
 
 public class HotelBuffer {
@@ -19,13 +20,12 @@ public class HotelBuffer {
 	Charset charset;
 
 	public HotelBuffer() {
-
 		Path file;
 		Charset charset;
-
 	}
 
 	public Hotel insertarHotelFichero(String ruta) {
+
 		Path salida = Paths.get(ruta);
 		charset = Charset.forName("UTF-8");
 		List<String> texto = null;
@@ -38,45 +38,51 @@ public class HotelBuffer {
 		}
 		h = new Hotel(texto.get(0), texto.get(1), texto.get(2), texto.get(3), texto.get(4),
 				Integer.parseInt(texto.get(5)), Integer.parseInt(texto.get(6)));
-		String[] s = new String[7];
-		s[0] = texto.get(0);
-		s[1] = texto.get(1);
-		s[2] = texto.get(2);
-		s[3] = texto.get(3);
-		s[4] = texto.get(4);
-		s[5] = texto.get(5);
-		s[6] = texto.get(6);
-		System.out.println(texto.toString());
+		String[] infohabitaciones = texto.get(7).split(";");
+		int y = 0;
+		Habitacion[][] habitaciones = new Habitacion[Integer.parseInt(texto.get(5))][Integer.parseInt(texto.get(6))];
+		try {
+			for (int i = 0; i < Integer.parseInt(texto.get(5)); i++) {
+				for (int j = 0; j < Integer.parseInt(texto.get(6)); j++) {
+					String[] datosHabitacion = infohabitaciones[y].split(",");
+					habitaciones[i][j] = new Habitacion(datosHabitacion[0], datosHabitacion[1], datosHabitacion[2]);
+					y++;
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println("Peta en la creación de las habitaciones");
+		}
+
+		h.setHabitaciones(habitaciones);
 		return h;
 	}
 
-	public void guardarHotelEnFichero(String ruta, ArrayList<Hotel> hoteles) {
+	public void guardarHotelEnFichero(String ruta, Hotel hotel) {
 		file = Paths.get(ruta);
 		charset = Charset.forName("UTF-8");
-		String[] s = new String[7];
-		String[] cls = new String[hoteles.size()];
-		int y = 0;
-
+		String[] s = new String[8];
+		System.out.println(ruta.toString());
 		try {
 			BufferedWriter writer = Files.newBufferedWriter(file, charset);
-			for (Hotel hotel : hoteles) {
-				s[0] = hotel.getNombre();
-				s[1] = hotel.getDirrecion();
-				s[2] = hotel.getTelefono();
-				s[3] = hotel.getCorreo();
-				s[4] = hotel.getEstrellas();
-				s[5] = Integer.toString(hotel.getNumPlantas());
-				s[6] = Integer.toString(hotel.getNumHabPlanta());
-				s[7] = hotel.getHabitaciones();
-
-				String linea = s[0] + ":" + s[1] + ":" + s[2] + ":" + s[3];
-				cls[y] = linea;
-				writer.write(cls[y], 0, cls[y].length());
+			s[0] = hotel.getNombre();
+			s[1] = hotel.getDirrecion();
+			s[2] = hotel.getTelefono();
+			s[3] = hotel.getCorreo();
+			s[4] = hotel.getEstrellas();
+			s[5] = Integer.toString(hotel.getNumPlantas());
+			s[6] = Integer.toString(hotel.getNumHabPlanta());
+			s[7] = hotel.getHabitaciones();
+			System.out.println(s.toString());
+			for (String string : s) {
+				writer.write(string);
 				writer.newLine();
 			}
 			writer.close();
 		} catch (IOException io) {
 			System.err.format("IOExceptio: %s%n", io);
+			System.out.println(io.toString());
 		}
 		/*
 		 * file = Paths.get(ruta); charset = Charset.forName("UTF-8"); String[]
